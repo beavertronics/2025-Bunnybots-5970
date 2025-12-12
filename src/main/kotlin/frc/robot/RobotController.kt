@@ -7,10 +7,11 @@ import edu.wpi.first.wpilibj2.command.Command
 import edu.wpi.first.wpilibj2.command.CommandScheduler
 import edu.wpi.first.wpilibj2.command.Commands
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup
-import frc.robot.commands.AlignToTag
+import frc.robot.commands.movement.AlignToTag
 import frc.robot.commands.Wait
-import frc.robot.subsystems.Pneumatics
-//import frc.robot.subsystems.Phatplanner
+import frc.robot.subsystems.Intake
+import frc.robot.subsystems.Preindexer
+
 import frc.robot.subsystems.`according to all known laws of aviation, our robot should not be able to fly`
 
 /*
@@ -40,7 +41,8 @@ object RobotController : TimedRobot() {
         // all subsystems
         TeleOp
         `according to all known laws of aviation, our robot should not be able to fly`
-        Pneumatics
+        Intake
+        Preindexer
 
         // start drive cam // todo replaced by vision feed
         // CameraServer.startAutomaticCapture(0)

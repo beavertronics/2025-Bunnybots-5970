@@ -2,14 +2,19 @@ package frc.robot
 
 import kotlin.math.*
 import beaverlib.utils.Sugar.within
+import beaverlib.utils.Units.Electrical.volts
 import edu.wpi.first.wpilibj.DoubleSolenoid
 import edu.wpi.first.wpilibj.GenericHID
 import edu.wpi.first.wpilibj.Timer
 import edu.wpi.first.wpilibj2.command.Command
 import edu.wpi.first.wpilibj2.command.SubsystemBase
+import edu.wpi.first.wpilibj2.command.button.CommandJoystick
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController
-import frc.robot.commands.*
+import frc.robot.commands.subsytems.MoveIntake
+import frc.robot.commands.subsytems.RunIntake
+import frc.robot.commands.subsytems.RunPreindexer
 import frc.robot.commands.swerve.TeleopDriveCommand
+import frc.robot.subsystems.Drivetrain
 
 /*
 Sets up the operator interface (controller inputs), as well as
@@ -30,18 +35,17 @@ object TeleOp {
         )
 
     init {
-        // Drivetrain.defaultCommand = teleOpDrive
+         Drivetrain.defaultCommand = teleOpDrive
     }
 
     /**
      * configures things to run on specific inputs
      */
     fun configureBindings() {
-//        OI.followTag.whileTrue(FollowAprilTag(1))
-//        OI.movement.whileTrue(Move(1.0, 0.0, 0.0))
-//        OI.driveCircle.whileTrue(Circle())
         OI.lowerIntake.whileTrue(MoveIntake(DoubleSolenoid.Value.kForward))
         OI.raiseIntake.whileTrue(MoveIntake(DoubleSolenoid.Value.kReverse))
+        OI.runIntake.whileTrue(RunIntake(1.0.volts))
+        OI.runPreindexer.whileTrue(RunPreindexer(1.0.volts))
     }
 
     /**
@@ -95,8 +99,6 @@ object TeleOp {
 
             override fun execute() {
                 controller.setRumble(rumbleSide, rumblePower)
-                // update the pose
-
             }
 
             override fun end(interrupted: Boolean) {
@@ -118,12 +120,10 @@ object TeleOp {
         val slowMode get() = driverController.leftTrigger().asBoolean
         val toggleFieldOriented get() = driverController.rightTrigger().asBoolean
         //===== SUBSYSTEMS =====//
-        val followTag get() = driverController.leftBumper()
-//        val movement get() = driverController.leftBumper()
-        val driveCircle get() = driverController.rightBumper()
-
         val lowerIntake get() = driverController.povDown()
         val raiseIntake get() = driverController.povUp()
+        val runIntake get() = driverController.povLeft()
+        val runPreindexer get() = driverController.povRight()
     }
 }
 

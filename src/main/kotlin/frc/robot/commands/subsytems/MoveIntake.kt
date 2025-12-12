@@ -1,17 +1,17 @@
-package frc.robot.commands
+package frc.robot.commands.subsytems
 
 import edu.wpi.first.wpilibj.DoubleSolenoid
 import edu.wpi.first.wpilibj2.command.Command
-import frc.robot.subsystems.Pneumatics
+import frc.robot.subsystems.Intake
 
 class MoveIntake(val state: DoubleSolenoid.Value) : Command() {
 
     init {
-        addRequirements(Pneumatics)
+        addRequirements(Intake)
     }
 
     override fun execute() {
-        Pneumatics.set(state)
+        Intake.setIntakePosition(state)
     }
 
     override fun isFinished(): Boolean {
