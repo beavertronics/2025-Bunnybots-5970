@@ -42,10 +42,10 @@ object TeleOp {
      * configures things to run on specific inputs
      */
     fun configureBindings() {
-        OI.lowerIntake.whileTrue(MoveIntake(DoubleSolenoid.Value.kForward))
-        OI.raiseIntake.whileTrue(MoveIntake(DoubleSolenoid.Value.kReverse))
-        OI.runIntake.whileTrue(RunIntake(1.0.volts))
-        OI.runPreindexer.whileTrue(RunPreindexer(1.0.volts))
+         OI.lowerIntake.whileTrue(MoveIntake(DoubleSolenoid.Value.kForward))
+         OI.raiseIntake.whileTrue(MoveIntake(DoubleSolenoid.Value.kReverse))
+         OI.runIntake.whileTrue(RunIntake(1.0.volts))
+         OI.runPreindexer.whileTrue(RunPreindexer(1.0.volts))
     }
 
     /**
@@ -53,7 +53,9 @@ object TeleOp {
      * getting inputs from controllers and whatnot.
      */
     object OI : SubsystemBase() {
-        val driverController = CommandXboxController(0)
+        val operatorController = CommandXboxController(2) // todo
+        val driverJoystickL = CommandJoystick(0) // todo
+        val driverJoystickR = CommandJoystick(3) // todo
 
         /**
          * Allows you to tweak controller inputs (ie get rid of deadzone, make input more sensitive by squaring or cubing it, etc).
@@ -114,16 +116,17 @@ object TeleOp {
          * Values for inputs go here
          */
         //===== DRIVETRAIN =====//
-        val driveForwards get() = driverController.leftY.processInput()
-        val driveStrafe get() = driverController.leftX.processInput()
-        val rotateRobot get() = driverController.rightX.processInput()
-        val slowMode get() = driverController.leftTrigger().asBoolean
-        val toggleFieldOriented get() = driverController.rightTrigger().asBoolean
+//        val driveForwards get() = driverController.leftY.processInput()
+        val driveForwards get() = driverJoystickL.y.processInput()
+        val driveStrafe get() = driverJoystickL.x.processInput()
+        val rotateRobot get() = driverJoystickR.x.processInput()
+        val slowMode get() = driverJoystickL.trigger().asBoolean
+        val toggleFieldOriented get() = !driverJoystickR.trigger().asBoolean
         //===== SUBSYSTEMS =====//
-        val lowerIntake get() = driverController.povDown()
-        val raiseIntake get() = driverController.povUp()
-        val runIntake get() = driverController.povLeft()
-        val runPreindexer get() = driverController.povRight()
+        val lowerIntake get() = operatorController.povDown()
+        val raiseIntake get() = operatorController.povUp()
+        val runIntake get() = operatorController.povLeft()
+        val runPreindexer get() = operatorController.povRight()
     }
 }
 

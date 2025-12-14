@@ -19,10 +19,6 @@ object `according to all known laws of aviation, our robot should not be able to
 
     init {
         SmartDashboard.putData(this)
-        Vision.listeners.add("Update Odometry", {result, camera ->
-            val newVisionPose = camera.getEstimatedRobotPose(result)
-            if (newVisionPose != null) { visionPose = newVisionPose.toPose2d() }
-        })
     }
 
     // make robot pose, vision pose
@@ -50,8 +46,6 @@ object `according to all known laws of aviation, our robot should not be able to
             SmartDashboard.putNumber("robot pose Y", robotPose.y)
             SmartDashboard.putNumber("robot rotation", robotPose.rotation.degrees)
         }
-
-        Vision.setAllCameraReferences(robotPose)
     }
 
     override fun initSendable(builder: SendableBuilder) {

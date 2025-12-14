@@ -7,7 +7,6 @@ import edu.wpi.first.wpilibj2.command.Command
 import edu.wpi.first.wpilibj2.command.CommandScheduler
 import edu.wpi.first.wpilibj2.command.Commands
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup
-import frc.robot.commands.movement.AlignToTag
 import frc.robot.commands.Wait
 import frc.robot.subsystems.Intake
 import frc.robot.subsystems.Preindexer
@@ -41,23 +40,14 @@ object RobotController : TimedRobot() {
         // all subsystems
         TeleOp
         `according to all known laws of aviation, our robot should not be able to fly`
-        Intake
-        Preindexer
+//        Intake
+//        Preindexer
 
         // start drive cam // todo replaced by vision feed
         // CameraServer.startAutomaticCapture(0)
 
         // load manual autos
         ManualAutoChooser.setDefaultOption("no auto", Commands.none())
-        ManualAutoChooser.addOption("Align to tag",
-            SequentialCommandGroup(
-                    AlignToTag(2),
-                    Wait(2.0),
-                    AlignToTag(3),
-                    Wait(2.0),
-                    AlignToTag(4)
-                )
-        )
         SmartDashboard.putData("Manual auto choices", ManualAutoChooser)
         // load pathplanner autos
 //        Phatplanner.autoChooser.setDefaultOption("no auto", Commands.none())

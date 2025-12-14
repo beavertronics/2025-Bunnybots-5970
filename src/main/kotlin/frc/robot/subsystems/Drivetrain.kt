@@ -9,6 +9,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine
 import swervelib.SwerveDrive
 import swervelib.SwerveDriveTest
+import swervelib.SwerveModule
+import swervelib.motors.SwerveMotor
 import swervelib.parser.SwerveParser
 import swervelib.telemetry.SwerveDriveTelemetry
 import swervelib.telemetry.SwerveDriveTelemetry.*
@@ -29,6 +31,14 @@ object DriveConstants {
 object Drivetrain : SubsystemBase() {
         // create anything that is set later (late init)
         var swerveDrive: SwerveDrive
+        var lfDrive: SwerveMotor
+        var lfSteer: SwerveMotor
+        var rfDrive: SwerveMotor
+        val rfSteer: SwerveMotor
+        val blDrive: SwerveMotor
+        val blSteer: SwerveMotor
+        val brDrive: SwerveMotor
+        val brSteer: SwerveMotor
 
         /**
          * init file that runs on intialization of drivetrain class
@@ -37,6 +47,15 @@ object Drivetrain : SubsystemBase() {
             // set up swerve drive :D
             SwerveDriveTelemetry.verbosity = TelemetryVerbosity.HIGH
             swerveDrive = SwerveParser(DriveConstants.DriveConfig).createSwerveDrive(DriveConstants.MaxSpeed)
+            lfDrive = swerveDrive.modules.get(0).driveMotor
+            lfSteer = swerveDrive.modules.get(0).angleMotor
+            rfDrive = swerveDrive.modules.get(1).driveMotor
+            rfSteer = swerveDrive.modules.get(1).angleMotor
+            blDrive = swerveDrive.modules.get(2).driveMotor
+            blSteer = swerveDrive.modules.get(2).angleMotor
+            brDrive = swerveDrive.modules.get(3).driveMotor
+            brSteer = swerveDrive.modules.get(3).angleMotor
+
         }
         /**
          * Directly send voltage to the drive motors.

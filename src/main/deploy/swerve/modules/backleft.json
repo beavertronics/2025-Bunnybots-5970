@@ -1,7 +1,7 @@
 {
   "location": {
-    "front": -18.3847763109,
-    "left": 18.3847763109
+    "front": -11.0,
+    "left": 11.0
   },
   "absoluteEncoderOffset": 0.0,
   "drive": {
@@ -11,7 +11,7 @@
   },
   "angle": {
     "type": "sparkmax_neo550",
-    "id": 11,
+    "id": 7,
     "canbus": null
   },
   "encoder": {

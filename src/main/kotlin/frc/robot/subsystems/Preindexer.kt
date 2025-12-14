@@ -8,8 +8,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase
 import frc.engine.utils.initMotorControllers
 
 object PIConstants {
-    val leftMotorID = 0 // todo
-    val rightMotorID = 0 // todo
+    val leftMotorID = 23 // todo
+    val rightMotorID = 66 // todo
     val currentLimit = 30 // todo
 }
 
